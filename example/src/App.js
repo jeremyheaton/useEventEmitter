@@ -1,10 +1,29 @@
-import React from 'react'
+import React, { Fragment } from 'react'
 
-import { ExampleComponent } from 'use-event-listener'
-import 'use-event-listener/dist/index.css'
+import { useEventSubscriber, useEventCallback, useEventPublisher } from 'use-event-listener'
 
 const App = () => {
-  return <ExampleComponent text="Create React Library Example 😄" />
+  let [testState, setTestState] = React.useState(0);
+  let subscriberFunction = useEventCallback((state) => {
+    console.log(state);
+    setTestState(state + 1);
+  });
+  let subscriber = useEventSubscriber("test", subscriberFunction);
+  
+  return <Fragment>
+      <h1> {testState} </h1>
+      <Child/>
+    </Fragment>
 }
 
+const Child = () => {
+  let [testState, setTestState] = React.useState(0);
+  let publisher = useEventPublisher();
+
+  let testFunction = () => {
+    publisher("test", testState)
+    setTestState(testState+1);
+  }
+  return <h1 onClick={testFunction} > {testState} </h1>
+}
 export default App
