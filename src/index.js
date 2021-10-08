@@ -11,7 +11,6 @@ export const useEventCallback = (callback) => {
 }
 
 export const useEventSubscriber = (event, callback) => {
-  const [subscriberState, setSubscriberState] = React.useState(new Map());
   // state that tracks if this is the first time the component was created. 
   // Enforces rules where events are not duplicated.
   const [internalState, setInternalState] = React.useState(false);
@@ -19,11 +18,7 @@ export const useEventSubscriber = (event, callback) => {
   // Cleans up component after it unmounts. So hanging callbacks don't get called for 
   // components that no longer exist
   React.useLayoutEffect(() => {
-    return () => {
-      for (let [event, callback] of subscriberState.entries()) {
-        eventListener[event].delete(callback);
-      }
-    }
+    return () => eventListener[event].delete(callback);
   }, []);
 
   // check if the function has been called previously
@@ -35,9 +30,7 @@ export const useEventSubscriber = (event, callback) => {
     } else {
       eventListener[event].add(callback);
     }
-    subscriberState.set(event, callback);
     setInternalState(true);
-    setSubscriberState(subscriberState);
   }
 
   return {
