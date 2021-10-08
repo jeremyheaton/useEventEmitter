@@ -1,50 +1,52 @@
 import React from 'react'
+import { v4 as uuidv4 } from 'uuid';
 
-let eventListener = {}
-
-export const useEventCallback = (callback) => {
-  const memoizedCallback = React.useCallback(
-    (state) => callback(state),
-    [],
-  );
-  return memoizedCallback;
-}
-
+let eventListener = new Map()
+let eventCallbackCache = new Map();
 export const useEventSubscriber = (event, callback) => {
   // state that tracks if this is the first time the component was created. 
   // Enforces rules where events are not duplicated.
-  const [internalState, setInternalState] = React.useState(false);
+  const [componentId, setComponentId] = React.useState(uuidv4());
+
   
   // Cleans up component after it unmounts. So hanging callbacks don't get called for 
   // components that no longer exist
-  React.useLayoutEffect(() => {
-    return () => eventListener[event].delete(callback);
+  React.useEffect(() => {
+    return () => {
+      eventListener.get(event).delete(eventCallbackCache.get(componentId));
+      eventCallbackCache.delete(componentId);
+    }
   }, []);
 
-  // check if the function has been called previously
-  if(!internalState) {
-    if(eventListener[event] == undefined) {
+  // Check if the function has been called previously
+  if(!eventCallbackCache.has(componentId)) {
+    if(!eventListener.has(event)) {
       const callbackSet = new Set();
       callbackSet.add(callback);
-      eventListener[event] = callbackSet;
+      eventListener.set(event, callbackSet)
     } else {
-      eventListener[event].add(callback);
+      eventListener.get(event).add(callback);
     }
-    setInternalState(true);
+    eventCallbackCache.set(componentId, callback);
+  } else {
+    eventListener.get(event).delete(eventCallbackCache.get(componentId));
+    eventListener.get(event).add(callback);
+    eventCallbackCache.set(componentId, callback);
   }
 
   return {
     unsubscribe: () => {
-      eventListener[event].delete(callback)
+      eventListener[event].delete(cachedCallBack);
       subscriberState.delete(event);
+      eventCallbackCache.delete(componentId);
     }
   };
 }
 
 export const useEventPublisher = () => {
   return (event, payload) => {
-    if(eventListener[event] != undefined) {
-      eventListener[event].forEach(cb => {
+    if(eventListener.get(event) != undefined) {
+      eventListener.get(event).forEach(cb => {
         console.log(payload);
         cb(payload);
       });
