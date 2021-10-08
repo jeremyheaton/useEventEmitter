@@ -59,6 +59,7 @@ const Child = () => {
 - Test Suite
 - Allow for Events to be routed to specific functions
 - Allow for precached functions to boost performance
+- Add typescript support
 
 ## License
 
