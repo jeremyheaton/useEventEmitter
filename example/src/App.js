@@ -1,6 +1,6 @@
 import React, { Fragment } from 'react'
 
-import { useEventSubscriber, useEventPublisher } from 'use-event-listener'
+import { useEventSubscriber, useEventPublisher } from 'use-event-emitter-hook'
 
 const App = () => {
   let [testState, setTestState] = React.useState(0);

@@ -1,5 +1,5 @@
 {
-  "name": "use-event-listener",
+  "name": "use-event-emitter-hook",
   "version": "1.0.0",
   "description": "react hook that allows for events to be passed between components",
   "author": "jeremyheaton",

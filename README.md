@@ -1,4 +1,4 @@
-# use-event-listener
+# use-event-emitter-hook
 
 > react hook that allows for events to be passed between components
 
@@ -7,7 +7,7 @@
 ## Install
 
 ```bash
-npm install --save use-event-listener
+npm install --save use-event-emitter-hook
 ```
 ## Goal
 
@@ -22,7 +22,7 @@ Internally the library caches function calls and for each render will recreate t
 ```jsx
 import React, { Fragment } from 'react'
 
-import { useEventSubscriber, useEventPublisher } from 'use-event-listener'
+import { useEventSubscriber, useEventPublisher } from 'use-event-emitter-hook'
 
 const App = () => {
   let [testState, setTestState] = React.useState(0);

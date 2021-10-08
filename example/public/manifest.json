@@ -1,6 +1,6 @@
 {
-  "short_name": "use-event-listener",
-  "name": "use-event-listener",
+  "short_name": "use-event-emitter-hook",
+  "name": "use-event-emitter-hook",
   "icons": [
     {
       "src": "favicon.ico",
