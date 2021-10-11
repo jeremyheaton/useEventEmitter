@@ -6,8 +6,9 @@
   "license": "MIT",
   "repository": "jeremyheaton/useEventEmitter",
   "main": "dist/index.js",
+  "types": "dist/index.d.ts",
   "module": "dist/index.modern.js",
-  "source": "src/index.js",
+  "source": "src/index.ts",
   "engines": {
     "node": ">=10"
   },

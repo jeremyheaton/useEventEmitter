@@ -8,7 +8,6 @@ export const useEventSubscriber = (event, callback) => {
   // Enforces rules where events are not duplicated.
   const [componentId, setComponentId] = React.useState(uuidv4());
 
-  
   // Cleans up component after it unmounts. So hanging callbacks don't get called for 
   // components that no longer exist
   React.useEffect(() => {
@@ -36,8 +35,7 @@ export const useEventSubscriber = (event, callback) => {
 
   return {
     unsubscribe: () => {
-      eventListener[event].delete(cachedCallBack);
-      subscriberState.delete(event);
+      eventListener[event].delete(callback);
       eventCallbackCache.delete(componentId);
     }
   };
@@ -47,7 +45,6 @@ export const useEventPublisher = () => {
   return (event, payload) => {
     if(eventListener.get(event) != undefined) {
       eventListener.get(event).forEach(cb => {
-        console.log(payload);
         cb(payload);
       });
     }
