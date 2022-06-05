@@ -3,7 +3,7 @@ import { v4 as uuidv4 } from 'uuid';
 
 let eventListener = new Map()
 let eventCallbackCache = new Map();
-export const useEventSubscriber = (event, callback) => {
+export const useEventSubscriber = (event: string, callback: (param?: any) => void) => {
   // state that tracks if this is the first time the component was created. 
   // Enforces rules where events are not duplicated.
   const [componentId, setComponentId] = React.useState(uuidv4());
@@ -42,7 +42,7 @@ export const useEventSubscriber = (event, callback) => {
 }
 
 export const useEventPublisher = () => {
-  return (event, payload) => {
+  return (event: string, payload?: any) => {
     if(eventListener.get(event) != undefined) {
       eventListener.get(event).forEach(cb => {
         cb(payload);

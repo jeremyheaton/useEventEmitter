@@ -19,6 +19,8 @@ Using the package is very simple and two functions are exposed; `userEventSubscr
 
 Internally the library caches function calls and for each render will recreate the event tree to point to the new function instance.
 
+### JavaScript
+
 ```jsx
 import React, { Fragment } from 'react'
 
@@ -53,6 +55,7 @@ const Child = () => {
   return <h1 onClick={testFunction} > {testState} </h1>
 }
 ```
+
 
 ## Future Development
 
