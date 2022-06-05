@@ -2,7 +2,7 @@
 
 > react hook that allows for events to be passed between components
 
-[![NPM](https://img.shields.io/npm/v/use-event-listener.svg)](https://www.npmjs.com/package/use-event-listener) [![JavaScript Style Guide](https://img.shields.io/badge/code_style-standard-brightgreen.svg)](https://standardjs.com)
+[![NPM](https://img.shields.io/npm/v/use-event-emitter-hook.svg)](https://www.npmjs.com/package/use-event-emitter-hook) [![JavaScript Style Guide](https://img.shields.io/badge/code_style-standard-brightgreen.svg)](https://standardjs.com)
 
 ## Install
 
