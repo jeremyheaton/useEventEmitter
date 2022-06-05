@@ -1,15 +1,9 @@
 import React from 'react'
 import { v4 as uuidv4 } from 'uuid';
 
-<<<<<<< HEAD
-let eventListener = new Map()
-let eventCallbackCache = new Map();
-export const useEventSubscriber = (event: string, callback: (param?: any) => void) => {
-=======
 const eventListener = new Map()
 const eventCallbackCache = new Map();
 export const useEventSubscriber = (event, callback) => {
->>>>>>> 62c02c7c1eb89976806a57724b22651295f9bd73
   // state that tracks if this is the first time the component was created. 
   // Enforces rules where events are not duplicated.
   const [componentId, setComponentId] = React.useState(uuidv4());
